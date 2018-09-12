@@ -1,0 +1,35 @@
+<h1>{{ titulo }}</h1>
+<div *ngIf="alertUpdate">
+  <div class="alert alert-info" role="alert">
+    {{ alertUpdate }}
+  </div>
+</div>
+<form #userUpdateForm="ngForm" class="col-lg-8" (ngSubmit)="update()">
+  <div class="form-group">
+    <label for="inputNombre">Nombre:</label>
+    <input type="text" id="inputNombre" #name="ngModel" [(ngModel)]="user.name" [ngModelOptions]="{standalone: true}" class="form-control"
+      placeholder="Escribe aqui">
+  </div>
+  <span *ngIf="!name.valid && name.touched">Se requiere</span>
+  <div class="form-group">
+    <label for="inputApellidos">Apellidos:</label>
+    <input id="inputApellidos" type="text" #surname="ngModel" [(ngModel)]="user.surname" [ngModelOptions]="{standalone: true}"
+      class="form-control" placeholder="Escribe aqui">
+  </div>
+  <span *ngIf="!surname.valid && surname.touched">Se requiere</span>
+  <div class="form-group">
+    <label for="inputEmailRegistro">Email:</label>
+    <input id="inputEmailRegistro" type="email" #email="ngModel" [(ngModel)]="user.email" [ngModelOptions]="{standalone: true}"
+      class="form-control" placeholder="Escribe aqui">
+  </div>
+  <span *ngIf="!email.valid && email.touched">Se requiere email</span>
+
+  <div class="image_for_edit" *ngIf="user.imagen && user.iamgen != 'null'">
+    <img src="{{URL +'get-image-user/'+user.imagen}}" style="width: 50px" />
+  </div>
+  <p>
+    <label>Sube tu foto:</label>
+    <input type="file" placeholder="Subir imagen..." (change)="fileChangeEvvent($event)">
+  </p>
+  <button type="submit" class="btn btn-primary">Actualizar datos</button>
+</form>
